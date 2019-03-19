@@ -4,7 +4,7 @@ import hexToRgba from "hex-to-rgba";
 // import get from "lodash/get";
 import desaturate from "polished/lib/color/desaturate";
 import * as React from "react";
-import { Interval } from "../../schema/Interval";
+import { Schedule as ISchedule } from "../../schema/Schedule";
 import { Theme } from "../../schema/Theme";
 import connect from "../components/connect";
 import Schedule from "../components/Schedule";
@@ -69,10 +69,10 @@ const ScheduleTemplateContent = styled.div`
 interface ScheduleTemplateProps {
   theme: Theme;
   schedule: {
-    intervals?: Interval[];
-    day: string;
-    conferenceId: string;
+    intervals?: ISchedule["intervals"];
+    day: ISchedule["day"];
   };
+  conferenceId: string;
   id: string;
 }
 
@@ -91,11 +91,11 @@ const ConnectedSponsors = connect(
 function ScheduleTemplate({
   theme,
   // TODO: Drop defaults from here
-  schedule: { intervals, day, conferenceId } = {
+  schedule: { intervals, day } = {
     intervals: [],
     day: "",
-    conferenceId: "",
   },
+  conferenceId = "",
   id,
 }: ScheduleTemplateProps) {
   return (
