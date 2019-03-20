@@ -69,7 +69,6 @@ const ScheduleTemplateContent = styled.div`
 interface ScheduleTemplateProps {
   theme: Theme;
   schedule: {
-    intervals?: ISchedule["intervals"];
     day: ISchedule["day"];
   };
   conferenceId: string;
@@ -92,8 +91,7 @@ const ConnectedSponsors = connect(
 function ScheduleTemplate({
   theme,
   // TODO: Drop defaults from here
-  schedule: { intervals, day } = {
-    intervals: [],
+  schedule: { day } = {
     day: "",
   },
   conferenceId = "",
@@ -111,7 +109,7 @@ function ScheduleTemplate({
         Schedule{day ? ` ― ${day}` : ""}
       </ScheduleTemplateHeader>
       <ScheduleTemplateContent>
-        {intervals && <Schedule theme={theme} intervals={intervals} />}
+        <Schedule theme={theme} intervals={[]} />
       </ScheduleTemplateContent>
       <ScheduleContainer>
         <ConnectedSponsors conferenceId={conferenceId} />
