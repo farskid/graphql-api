@@ -84,8 +84,8 @@ const ConnectedSponsors = connect(
   "/graphql",
   sponsorQuery,
   ({ conferenceId }) => ({ conferenceId })
-)(({ conference }) => {
-  return <Sponsors sponsors={conference || {}} />;
+)(({ sponsors }) => {
+  return <Sponsors sponsors={sponsors || []} />;
 });
 
 // conferenceId -> intervals
