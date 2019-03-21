@@ -82,7 +82,7 @@ const ConnectedSponsors = connected(Sponsors);
 
 // conferenceId -> intervals
 // pass theme through
-const ConnectedSchedule = Schedule;
+const ConnectedSchedule = connected(Schedule);
 
 // TODO: 1. Refactor to ConnectedSchedule and remove intervals from direct data deps
 // TODO: 2. Use connected for Schedule as well
@@ -107,11 +107,13 @@ function ScheduleTemplate({
         Schedule{day ? ` ― ${day}` : ""}
       </ScheduleTemplateHeader>
       <ScheduleTemplateContent>
-        {/* TODO: How to deal with this? Wrap into connect for now or introspects at once here + pass props? */}
-        <ConnectedSchedule theme={theme} intervals={[]} />
+        <ConnectedSchedule
+          conferenceId={conferenceId}
+          day={day}
+          theme={theme}
+        />
       </ScheduleTemplateContent>
       <ScheduleContainer>
-        {/* TODO: Figure out a better way to pass conferenceId (read from context?) */}
         <ConnectedSponsors conferenceId={conferenceId} />
       </ScheduleContainer>
     </ScheduleTemplateContainer>
