@@ -71,7 +71,7 @@ interface ScheduleTemplateProps {
   schedule: {
     day: ISchedule["day"];
   };
-  conferenceId: string;
+  conferenceId: string; // TODO: Likely this should be removed (contained in a query)
   id: string;
 }
 
@@ -79,12 +79,18 @@ const ScheduleContainer = styled.section`
   margin-top: -0.5cm;
 `;
 
-// TODO: Use through `connected`
+// TODO: Use through `connected` -> needs sponsors(conferenceId) end point
 const ConnectedSponsors = connect(
   "/graphql",
   sponsorQuery,
   ({ conferenceId }) => ({ conferenceId })
-)(({ conference }) => <Sponsors {...conference} />);
+)(({ conference }) => {
+  return <Sponsors sponsors={conference || {}} />;
+});
+
+// conferenceId -> intervals
+// pass theme through
+const ConnectedSchedule = Schedule;
 
 // TODO: 1. Refactor to ConnectedSchedule and remove intervals from direct data deps
 // TODO: 2. Use connected for Schedule as well
@@ -109,9 +115,11 @@ function ScheduleTemplate({
         Schedule{day ? ` ― ${day}` : ""}
       </ScheduleTemplateHeader>
       <ScheduleTemplateContent>
-        <Schedule theme={theme} intervals={[]} />
+        {/* TODO: How to deal with this? Wrap into connect for now or introspects at once here + pass props? */}
+        <ConnectedSchedule theme={theme} intervals={[]} />
       </ScheduleTemplateContent>
       <ScheduleContainer>
+        {/* TODO: Same here, what's a smart way to connect? */}
         <ConnectedSponsors conferenceId={conferenceId} />
       </ScheduleContainer>
     </ScheduleTemplateContainer>
