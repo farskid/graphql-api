@@ -67,11 +67,9 @@ const ScheduleTemplateContent = styled.div`
 // TODO: Add context (needed for introspection)
 interface ScheduleTemplateProps {
   theme: Theme;
-  schedule: {
-    day: ISchedule["day"];
-  };
   conferenceId: string; // TODO: Likely this should be removed (contained in a query)
   id: string;
+  day: ISchedule["day"];
 }
 
 const ScheduleContainer = styled.section`
@@ -88,12 +86,9 @@ const ConnectedSchedule = connected(Schedule);
 // TODO: 2. Use connected for Schedule as well
 function ScheduleTemplate({
   theme,
-  // TODO: Drop defaults from here
-  schedule: { day } = {
-    day: "",
-  },
   conferenceId = "",
   id,
+  day,
 }: ScheduleTemplateProps) {
   return (
     <ScheduleTemplateContainer
